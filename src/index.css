@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #020408;
+    color: #e0f0ff;
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #060d14;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #00f5ff40;
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00f5ff80;
+  }
+}
+
+@layer components {
+  .scanline-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+  }
+
+  .crt-vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.6) 100%);
+  }
+
+  .neon-text-cyan {
+    color: #00f5ff;
+    text-shadow: 0 0 8px #00f5ff, 0 0 20px #00f5ff60;
+  }
+
+  .neon-text-pink {
+    color: #ff006e;
+    text-shadow: 0 0 8px #ff006e, 0 0 20px #ff006e60;
+  }
+
+  .neon-text-yellow {
+    color: #ffbe0b;
+    text-shadow: 0 0 8px #ffbe0b, 0 0 20px #ffbe0b60;
+  }
+
+  .neon-text-green {
+    color: #06ffa5;
+    text-shadow: 0 0 8px #06ffa5, 0 0 20px #06ffa560;
+  }
+
+  .neon-border-cyan {
+    border-color: #00f5ff;
+    box-shadow: 0 0 8px #00f5ff40, inset 0 0 8px #00f5ff10;
+  }
+
+  .neon-border-pink {
+    border-color: #ff006e;
+    box-shadow: 0 0 8px #ff006e40, inset 0 0 8px #ff006e10;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(0, 245, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 245, 255, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+/* Glitch effect for title */
+.glitch-title {
+  position: relative;
+}
+
+.glitch-title::before,
+.glitch-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-title::before {
+  animation: glitch-before 4s infinite;
+  color: #ff006e;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch-title::after {
+  animation: glitch-after 4s infinite;
+  color: #00f5ff;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-before {
+  0%, 90%, 100% { transform: translate(0); opacity: 0; }
+  92% { transform: translate(-3px, 1px); opacity: 0.8; }
+  94% { transform: translate(3px, -1px); opacity: 0.8; }
+  96% { transform: translate(-2px, 0); opacity: 0.8; }
+  98% { transform: translate(0); opacity: 0; }
+}
+
+@keyframes glitch-after {
+  0%, 90%, 100% { transform: translate(0); opacity: 0; }
+  91% { transform: translate(3px, 2px); opacity: 0.8; }
+  93% { transform: translate(-3px, -1px); opacity: 0.8; }
+  95% { transform: translate(2px, 1px); opacity: 0.8; }
+  97% { transform: translate(0); opacity: 0; }
+}
+
+/* Win line animation */
+.win-cell {
+  animation: winFlash 0.4s ease-in-out 4;
+}
+
+@keyframes winFlash {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.05); }
+}
