@@ -41,7 +41,7 @@ function SessionRow({ session, onDelete }) {
     <div
       className={cn(
         "border bg-void-800/60 transition-all duration-200",
-        isActive ? "border-neon-green/30" : "border-white/5",
+        isActive ? "border-neon-green/30" : "border-white/45",
       )}
     >
       <div
@@ -60,7 +60,7 @@ function SessionRow({ session, onDelete }) {
           <div className="flex items-center gap-2">
             <span className="font-display text-sm text-white/90 truncate">
               <span className="neon-text-pink">{player1}</span>
-              <span className="text-white/30 mx-1">vs</span>
+              <span className="text-white/70 mx-1">vs</span>
               <span className="neon-text-cyan">{player2}</span>
             </span>
             {!isActive && topPlayer && (
@@ -70,28 +70,29 @@ function SessionRow({ session, onDelete }) {
             )}
           </div>
           <div className="flex items-center gap-3 mt-0.5">
-            <span className="text-[10px] font-body text-white/30 tracking-wider">
+            <span className="text-[10px] font-body text-white/70 tracking-wider">
               {createdAt ? new Date(createdAt).toLocaleDateString() : "—"}
             </span>
             <span className="text-[10px] font-body neon-text-pink">{safeStats.player1Wins}W</span>
             <span className="text-[10px] font-body neon-text-yellow">{safeStats.draws}D</span>
             <span className="text-[10px] font-body neon-text-cyan">{safeStats.player2Wins}W</span>
-            <span className="text-[10px] font-body text-white/30">{total} rounds</span>
+            <span className="text-[10px] font-body text-white/70">{total} rounds</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 flex-shrink-0" hidden={safeRounds.length < 1}>
           {expanded ? (
-            <ChevronUp size={14} className="text-white/30" />
+            <ChevronUp size={14} className="text-white/70" />
           ) : (
-            <ChevronDown size={14} className="text-white/30" />
+            <ChevronDown size={14} className="text-white/70" />
           )}
           <button
             onClick={(e) => {
               e.stopPropagation();
               if (_id) onDelete(_id);
             }}
-            className="p-1.5 text-white/20 hover:text-neon-pink hover:bg-neon-pink/10 transition-all rounded"
+            hidden={isActive}
+            className="p-1.5 text-white/60 hover:text-neon-pink hover:bg-neon-pink/10 transition-all rounded"
           >
             <Trash2 size={12} />
           </button>
@@ -99,10 +100,10 @@ function SessionRow({ session, onDelete }) {
       </div>
 
       {expanded && (
-        <div className="border-t border-white/5 px-4 py-3">
+        <div className="border-t border-white/45 px-4 py-3">
           {safeRounds.length > 0 ? (
             <>
-              <div className="text-[10px] font-display tracking-widest text-white/30 uppercase mb-2">
+              <div className="text-[10px] font-display tracking-widest text-white/80 uppercase mb-2">
                 Round History
               </div>
               <div className="flex flex-wrap gap-2">
@@ -124,7 +125,7 @@ function SessionRow({ session, onDelete }) {
               </div>
             </>
           ) : (
-            <div className="text-[10px] font-body text-white/20 tracking-wider">
+            <div className="text-[10px] font-body text-white/60 tracking-wider">
               No rounds played yet
             </div>
           )}
@@ -156,11 +157,11 @@ export function SessionHistory() {
   return (
     <div className="w-full">
       <div className="flex items-center gap-2 mb-4">
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white/10" />
-        <span className="text-[10px] font-display tracking-[0.4em] text-white/30 uppercase">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white/40" />
+        <span className="text-[10px] font-display tracking-[0.4em] text-white/80 uppercase">
           Session Archive
         </span>
-        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white/10" />
+        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white/40" />
       </div>
 
       {/* Loading */}
@@ -183,11 +184,11 @@ export function SessionHistory() {
 
       {/* Empty state */}
       {!isLoading && !isError && sessions.length === 0 && (
-        <div className="text-center py-8 border border-white/5 bg-void-800/30">
-          <div className="font-body text-xs text-white/20 tracking-widest">
+        <div className="text-center py-8 border border-white/45 bg-void-800/30">
+          <div className="font-body text-xs text-white/60 tracking-widest">
             NO SESSIONS ON RECORD
           </div>
-          <div className="font-body text-[10px] text-white/10 tracking-widest mt-1">
+          <div className="font-body text-[10px] text-white/550 tracking-widest mt-1">
             START A GAME TO SEE IT HERE
           </div>
         </div>
@@ -208,7 +209,7 @@ export function SessionHistory() {
             )}
           </div>
           <div className="mt-3 text-right">
-            <span className="text-[10px] font-body text-white/20 tracking-widest">
+            <span className="text-[10px] font-body text-white/60 tracking-widest">
               {sessions.length} SESSION{sessions.length !== 1 ? "S" : ""} TOTAL
             </span>
           </div>
